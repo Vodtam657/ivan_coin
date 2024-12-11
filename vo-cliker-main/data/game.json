@@ -339,6 +339,40 @@
                 "full energy limit": 3,
                 "full energy current": 3
             }
+        },
+        {
+            "_id": 21,
+            "login": "\u043f\u043b\u043f",
+            "password": "\u0443\u0446\u043a\u0435\u043a\u0435",
+            "game lvl": 1,
+            "cur balance": 89,
+            "on tap": 1,
+            "energy": 411,
+            "energy limit": 500,
+            "regiset date": "12/11/2024",
+            "taps": 89,
+            "all balance": 89,
+            "boosts": {
+                "full energy limit": 3,
+                "full energy current": 3
+            }
+        },
+        {
+            "_id": 22,
+            "login": "\u0437\u0449\u0440\u0433\u0448\u043e",
+            "password": "\u0436\u0434\u043b",
+            "game lvl": 1,
+            "cur balance": 8,
+            "on tap": 1,
+            "energy": 492,
+            "energy limit": 1000,
+            "regiset date": "12/11/2024",
+            "taps": 8,
+            "all balance": 8,
+            "boosts": {
+                "full energy limit": 3,
+                "full energy current": 3
+            }
         }
     ]
 }

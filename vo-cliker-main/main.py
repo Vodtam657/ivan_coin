@@ -461,7 +461,7 @@ def cehksingin(user_login, user_password):
                         return
                     else:
                         log = ["invalid password", "err"]
-                        status = [False, getcurlenglocal("wrong password", "en")]
+                        status = [False, getcurlenglocal("wrong password", " en")]
                         logger_read(log)
                         singin(status)
                         return
@@ -512,7 +512,7 @@ def cheksingup(user_login, user_password):
                         "cur balance": 0,
                         "on tap": 1,
                         "energy": 500,
-                        "energy limit": 500,
+                        "energy limit": 1000,
                         "regiset date": datetime.datetime.now().strftime("%m/%d/%Y"),
                         "taps": 0,
                         "all balance": 0,
