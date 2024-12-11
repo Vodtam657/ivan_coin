@@ -9,14 +9,13 @@ from localization import Local, current_lang
 
 from loger import logger, logger_read
 
-ua, en = Local("localization/ua.json"), Local("localization/en.json")
+ua, cz, en = Local("localization/ua.json"), Local("localization/en.json"), Local("localization/cz.json")
 status = [False, "debug-line"]
-
 
 def getcurlenglocal(tag, lang=None):
     if lang:
-        return ua.get(tag) if lang == "ua" else en.get(tag)
-    return ua.get(tag) if current_lang == "ua" else en.get(tag)
+        return ua.get(tag) if lang == "ua" else en.get(tag) if lang == "en" else cz.get(tag)
+    return ua.get(tag) if current_lang == "ua" else en.get(tag) if current_lang == "en" else cz.get(tag)
 
 
 App = QApplication(sys.argv)
@@ -46,15 +45,16 @@ password_input.setPlaceholderText(getcurlenglocal("ent-password"))
 sing_in = QPushButton(getcurlenglocal("sing-in"))
 sing_up = QPushButton(getcurlenglocal("sing-up"))
 ualocalization = QCheckBox(getcurlenglocal("ua-localization"))
-
+czlocalization = QCheckBox(getcurlenglocal("cz-localization"))
 
 def centerwidget(widget, line):
     line.addWidget(QSplitter())
     line.addWidget(widget)
     line.addWidget(QSplitter())
 
-
+# Виправлено: замість двох параметрів у centerwidget передано один віджет за раз
 centerwidget(ualocalization, localization_line)
+centerwidget(czlocalization, localization_line)
 centerwidget(info, info_line)
 centerwidget(login_label, label_line)
 centerwidget(login_input, login_line)
@@ -78,7 +78,6 @@ loginMainLine.addWidget(QSplitter())
 login.setLayout(loginMainLine)
 
 # game window
-
 
 game = QWidget()
 game.setStyleSheet(open("Styles/game.qss").read())
