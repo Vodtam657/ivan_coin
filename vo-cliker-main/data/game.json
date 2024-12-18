@@ -373,6 +373,142 @@
                 "full energy limit": 3,
                 "full energy current": 3
             }
+        },
+        {
+            "_id": 23,
+            "login": "we",
+            "password": "wed",
+            "game lvl": 1,
+            "cur balance": 84,
+            "on tap": 1,
+            "energy": 416,
+            "energy limit": 1000,
+            "regiset date": "12/18/2024",
+            "taps": 84,
+            "all balance": 84,
+            "boosts": {
+                "full energy limit": 3,
+                "full energy current": 3
+            }
+        },
+        {
+            "_id": 24,
+            "login": "yii",
+            "password": "6uy",
+            "game lvl": 1,
+            "cur balance": 6,
+            "on tap": 1,
+            "energy": 494,
+            "energy limit": 1000,
+            "regiset date": "12/18/2024",
+            "taps": 6,
+            "all balance": 6,
+            "boosts": {
+                "full energy limit": 3,
+                "full energy current": 3
+            }
+        },
+        {
+            "_id": 25,
+            "login": "tut7",
+            "password": "tyty",
+            "game lvl": 1,
+            "cur balance": 0,
+            "on tap": 1,
+            "energy": 500,
+            "energy limit": 1000,
+            "regiset date": "12/18/2024",
+            "taps": 0,
+            "all balance": 0,
+            "boosts": {
+                "full energy limit": 3,
+                "full energy current": 3
+            }
+        },
+        {
+            "_id": 26,
+            "login": "tht",
+            "password": "thth",
+            "game lvl": 1,
+            "cur balance": 4,
+            "on tap": 1,
+            "energy": 496,
+            "energy limit": 1000,
+            "regiset date": "12/18/2024",
+            "taps": 4,
+            "all balance": 4,
+            "boosts": {
+                "full energy limit": 3,
+                "full energy current": 3
+            }
+        },
+        {
+            "_id": 27,
+            "login": "iy8toiu",
+            "password": "uio",
+            "game lvl": 1,
+            "cur balance": 13,
+            "on tap": 1,
+            "energy": 487,
+            "energy limit": 1000,
+            "regiset date": "12/18/2024",
+            "taps": 13,
+            "all balance": 13,
+            "boosts": {
+                "full energy limit": 3,
+                "full energy current": 3
+            }
+        },
+        {
+            "_id": 28,
+            "login": "\u0439\u0446\u0443\u0432\u0446",
+            "password": "\u0443\u0446\u0430",
+            "game lvl": 1,
+            "cur balance": 7,
+            "on tap": 1,
+            "energy": 493,
+            "energy limit": 1000,
+            "regiset date": "12/18/2024",
+            "taps": 7,
+            "all balance": 7,
+            "boosts": {
+                "full energy limit": 3,
+                "full energy current": 3
+            }
+        },
+        {
+            "_id": 29,
+            "login": "\u0443\u043a\u0440\u0430\u0440\u0443\u043a\u0430",
+            "password": "\u0432\u0430\u0440\u0432",
+            "game lvl": 1,
+            "cur balance": 26,
+            "on tap": 1,
+            "energy": 978,
+            "energy limit": 1000,
+            "regiset date": "12/18/2024",
+            "taps": 26,
+            "all balance": 26,
+            "boosts": {
+                "full energy limit": 3,
+                "full energy current": 0
+            }
+        },
+        {
+            "_id": 30,
+            "login": "5\u043d4\u0435\u043d",
+            "password": "\u0435\u043f\u0440\u0443",
+            "game lvl": 1,
+            "cur balance": 16,
+            "on tap": 1,
+            "energy": 484,
+            "energy limit": 1000,
+            "regiset date": "12/18/2024",
+            "taps": 16,
+            "all balance": 16,
+            "boosts": {
+                "full energy limit": 3,
+                "full energy current": 3
+            }
         }
     ]
 }

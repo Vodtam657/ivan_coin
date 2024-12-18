@@ -9,21 +9,39 @@ from localization import Local, current_lang
 
 from loger import logger, logger_read
 
-ua, cz, en = Local("localization/ua.json"), Local("localization/en.json"), Local("localization/cz.json")
+# Ініціалізація локалізацій
+ua, cz, en = Local("localization/ua.json"), Local("localization/cz.json"), Local("localization/en.json")
 status = [False, "debug-line"]
 
+# Функція отримання локалізації
 def getcurlenglocal(tag, lang=None):
     if lang:
-        return ua.get(tag) if lang == "ua" else en.get(tag) if lang == "en" else cz.get(tag)
+        if lang == "ua":
+            return ua.get(tag)
+        elif lang == "en":
+            return en.get(tag)
+        elif lang == "cz":
+            return cz.get(tag)
+    # Якщо мова не задана, використовувати глобальну змінну current_lang
     return ua.get(tag) if current_lang == "ua" else en.get(tag) if current_lang == "en" else cz.get(tag)
 
-
+# Ініціалізація додатку
 App = QApplication(sys.argv)
 App.setApplicationName("Ivan-coin")
 
+# Ініціалізація вікна входу
 login = QWidget()
-login.setStyleSheet(open("Styles/login.qss").read())
+
+try:
+    # Спроба застосувати стиль
+    with open("Styles/login.qss", "r") as style_file:
+        login.setStyleSheet(style_file.read())
+except FileNotFoundError:
+    print("Файл стилів 'Styles/login.qss' не знайдено.")
+
+# Фіксування розміру вікна
 login.setFixedSize(440, 700)
+
 
 loginMainLine = QVBoxLayout()
 info_line = QHBoxLayout()
@@ -47,6 +65,7 @@ sing_up = QPushButton(getcurlenglocal("sing-up"))
 ualocalization = QCheckBox(getcurlenglocal("ua-localization"))
 czlocalization = QCheckBox(getcurlenglocal("cz-localization"))
 
+
 def centerwidget(widget, line):
     line.addWidget(QSplitter())
     line.addWidget(widget)
@@ -54,7 +73,7 @@ def centerwidget(widget, line):
 
 # Виправлено: замість двох параметрів у centerwidget передано один віджет за раз
 centerwidget(ualocalization, localization_line)
-centerwidget(czlocalization, localization_line)
+
 centerwidget(info, info_line)
 centerwidget(login_label, label_line)
 centerwidget(login_input, login_line)
@@ -323,21 +342,37 @@ shop_pumping_main_line.addLayout(shop_pumping_v_line)
 shop_pumping.setLayout(shop_pumping_main_line)
 
 # func
-
-
 def localization():
     global current_lang
-    current_lang = "ua" if current_lang == "en" else "en"
-    logger.info("localization lang set to {}".format(current_lang))
-    info.setPlaceholderText(getcurlenglocal("debug-line"))
-    login_label.setText(getcurlenglocal("login"))
-    login_input.setPlaceholderText(getcurlenglocal("ent-login"))
-    password_input.setPlaceholderText(getcurlenglocal("ent-password"))
-    sing_in.setText(getcurlenglocal("sing-in"))
-    sing_up.setText(getcurlenglocal("sing-up"))
-    ualocalization.setText(getcurlenglocal("ua-localization"))
-    info.setText(getcurlenglocal(status[1], current_lang)) if info.text() != "" else (
-        info.setPlaceholderText(getcurlenglocal(status[1], current_lang)))
+    try:
+        # Логіка перемикання мови
+        if current_lang == "cz":
+            current_lang = "ua"
+        elif current_lang == "ua":
+            current_lang = "en"
+        else:
+            current_lang = "cz"  # Додаємо можливість перемикання на чеську мову
+
+        logger.info("Localization lang set to {}".format(current_lang))
+
+        # Оновлення текстів для всіх мов
+        info.setPlaceholderText(getcurlenglocal("debug-line"))
+        login_label.setText(getcurlenglocal("login"))
+        login_input.setPlaceholderText(getcurlenglocal("ent-login"))
+        password_input.setPlaceholderText(getcurlenglocal("ent-password"))
+        sign_in.setText(getcurlenglocal("sign-in"))
+        sign_up.setText(getcurlenglocal("sign-up"))
+        ualocalization.setText(getcurlenglocal("ua-localization"))
+        czlocalization.setText(getcurlenglocal("cz-localization"))
+
+        # Оновлення тексту статусу
+        if info.text() != "":
+            info.setText(getcurlenglocal(status[1], current_lang))
+        else:
+            info.setPlaceholderText(getcurlenglocal(status[1], current_lang))
+
+    except Exception as e:
+        logger.error(f"Error during localization: {e}")
 
 
 def menu_func(q):
@@ -368,6 +403,18 @@ def menu_func(q):
             boosts_open()
         case "Прокачка":
             pumping_opne()
+        case "Moje statistika":
+            go_statistic()
+        case "Opustit hru":
+            quit_game_func()
+        case "Zpět do hlavního menu":
+            go_login()
+        case "Přijmout":
+            del_account_accept()
+        case "Boosty":
+            boosts_open()
+        case "Vylepšení":
+            pumping_opne()
         case _:
             print(q.text())
 
@@ -397,7 +444,7 @@ def singin(status):
         game.show()
         login.close()
     else:
-        info.setText(getcurlenglocal(status[1], current_lang))
+        info.setText(getcurlenglocal(status[1], current_lang))  # Використовуємо current_lang для мови
 
 
 def singup(status):
@@ -419,34 +466,33 @@ def singup(status):
         try:
             progres = 100 / (user["energy limit"] / user["energy"])
             energy_progres.setValue(int(progres))
-
         except Exception as ex:
             logger.critical(ex)
             energy_progres.setValue(0)
         game.show()
         login.close()
     else:
-        info.setText(getcurlenglocal(status[1], current_lang))
+        info.setText(getcurlenglocal(status[1], current_lang))  # Використовуємо current_lang для мови
 
 
 def cehksingin(user_login, user_password):
     global status
     logger.info("try to sing in as {}:{}".format(user_login, user_password))
-    status = [False, getcurlenglocal("None error", "en")]
+    status = [False, getcurlenglocal("None error", current_lang)]  # Використовуємо current_lang для мови
     log = ["None", "crt"]
     with open("data/game.json") as file:
         data = json.loads(file.read())
         logger.info("data dump sucefulled")
     if user_login == "":
         log = ["No input login", "err"]
-        status = [False, getcurlenglocal("please input login", "en")]
+        status = [False, getcurlenglocal("please input login", current_lang)]  # Використовуємо current_lang для мови
         logger_read(log)
         singin(status)
         return
     else:
         if user_password == "":
             log = ["No input password", "err"]
-            status = [False, getcurlenglocal("please input password", "en")]
+            status = [False, getcurlenglocal("please input password", current_lang)]  # Використовуємо current_lang для мови
             logger_read(log)
             singin(status)
             return
@@ -460,35 +506,36 @@ def cehksingin(user_login, user_password):
                         return
                     else:
                         log = ["invalid password", "err"]
-                        status = [False, getcurlenglocal("wrong password", " en")]
+                        status = [False, getcurlenglocal("wrong password", current_lang)]  # Використовуємо current_lang для мови
                         logger_read(log)
                         singin(status)
                         return
                 else:
                     log = ["invalid login", "err"]
-                    status = [False, getcurlenglocal("unknown login", "en")]
+                    status = [False, getcurlenglocal("unknown login", current_lang)]  # Використовуємо current_lang для мови
             logger_read(log)
             singin(status)
             return
 
 
+
 def cheksingup(user_login, user_password):
     global status
     logger.info("try to sing up as {}:{}".format(user_login, user_password))
-    status = [False, getcurlenglocal("None error", "en")]
+    status = [False, getcurlenglocal("None error", current_lang)]  # Використовуємо current_lang для мови
     with open("data/game.json", "r") as file:
         data = json.load(file)
         logger.info("data dump sucefulled")
     if user_login == "":
         log = ["No input login", "err"]
-        status = [False, getcurlenglocal("please input login", "en")]
+        status = [False, getcurlenglocal("please input login", current_lang)]  # Використовуємо current_lang для мови
         logger_read(log)
         singup(status)
         return
     else:
         if user_password == "":
             log = ["No input password", "err"]
-            status = [False, getcurlenglocal("please input password", "en")]
+            status = [False, getcurlenglocal("please input password", current_lang)]  # Використовуємо current_lang для мови
             logger_read(log)
             singup(status)
             return
@@ -496,11 +543,11 @@ def cheksingup(user_login, user_password):
             for user in data["users"]:
                 if user_login == user["login"]:
                     logger.info(f"login already used")
-                    status = [False, getcurlenglocal("login already used", "en")]
+                    status = [False, getcurlenglocal("login already used", current_lang)]  # Використовуємо current_lang для мови
                     singup(status)
                     return
                 else:
-                    log = [f"sing up procesing {user_login}:{user_password} possible _id - {len(data["users"]) + 1}",
+                    log = [f"sing up procesing {user_login}:{user_password} possible _id - {len(data['users']) + 1}",
                            "info"]
                     status = [True, len(data["users"]) + 1]
                     user = {
@@ -524,6 +571,7 @@ def cheksingup(user_login, user_password):
                     logger_read(log)
                     singup(status)
                     return
+
 
 
 def go_statistic():
